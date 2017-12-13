@@ -16,7 +16,7 @@ RSpec.describe Order do
       end
     end
   end
-  describe 'realtionships' do
+  describe 'relationships' do
     it 'belongs to a user' do
       order = build(:order)
       expect(order).to respond_to(:user)
