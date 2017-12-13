@@ -17,7 +17,6 @@ require 'slow_helper'
 ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
-  config.include SlowHelper
   config.include SantasLittleHelper
   config.include FeatureHelper
 
