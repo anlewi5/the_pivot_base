@@ -2,7 +2,9 @@ require 'rails_helper'
 
 RSpec.feature "Unauthenticated users security" do
   before(:each) do
-    setup
+    user = create(:user)
+    @order = create(:order, user: user)
+    @unicorn_onesie_1 = create(:item)
   end
   context "As an unauthenticated user" do
     it "I cannot view another user’s private data" do
