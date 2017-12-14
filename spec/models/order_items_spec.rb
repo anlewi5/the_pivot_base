@@ -41,8 +41,8 @@ describe "order item methods" do
     order_1 = create(:order)
     order_2 = create(:order)
 
-    OrderItem.create(item: item_1, quantity: 1, order: order_1)
-    OrderItem.create(item: item_2, quantity: 3, order: order_2)
+    create(:order_item, item: item_1, quantity: 1, order: order_1)
+    create(:order_item, item: item_2, quantity: 3, order: order_2)
 
     expect(OrderItem.average_quantity).to eq(2)
   end
