@@ -1,19 +1,13 @@
 require 'rails_helper'
 
 describe OrderItem do
-  describe "attributes" do
-    it "calculates the total_price when given a quantity and unit_price" do
-      order_item = create(:order_item, quantity: 1, unit_price: 0.25)
-      expect(order_item.total_price).to eq 0.25
-    end
-  end
-
   describe "order item methods" do
     it "returns the quantity for an item associated with an order" do
       item_1 = create(:item)
       item_2 = create(:item)
       order_1 = create(:order, items: [item_1, item_2])
       order_2 = create(:order, items: [item_1])
+
       expected_result = {item_1.id => 2, item_2.id => 1}
       quantity_hash = OrderItem.sum_quantity.count
       expect(quantity_hash).to eq(expected_result)
