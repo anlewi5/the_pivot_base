@@ -37,4 +37,6 @@ Rails.application.routes.draw do
 
   resources :categories, only: [:show], param: :category
 
+  get "/:store", to: "store#show", as: :store
+
 end
