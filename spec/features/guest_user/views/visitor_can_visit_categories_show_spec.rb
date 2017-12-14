@@ -20,10 +20,10 @@ describe "As a visitor I can visit category show page" do
   end
 
   context "with invalid URI /category_name" do
-    it "and I see a 404 error" do
+    it "and I see an error message" do
       create(:category, title: "Magic")
 
-      expect { visit '/magic' }.to raise_error(ActionController::RoutingError)
+      expect { visit '/magic' }.to raise_error(ActionView::Template::Error)
     end
   end
 end
