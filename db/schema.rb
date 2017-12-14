@@ -73,6 +73,7 @@ ActiveRecord::Schema.define(version: 20171214184024) do
     t.bigint "role_id"
     t.index ["role_id"], name: "index_user_roles_on_role_id"
     t.index ["user_id"], name: "index_user_roles_on_user_id"
+  end
 
   create_table "stores", force: :cascade do |t|
     t.string "name"
