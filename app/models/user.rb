@@ -1,5 +1,7 @@
 class User < ApplicationRecord
   has_secure_password
+  has_many :user_roles
+  has_many :roles, through: :user_roles
   has_many :orders
 
   validates :first_name, :last_name, :password, presence: true
@@ -9,6 +11,11 @@ class User < ApplicationRecord
 
   def full_name
     first_name + " " + last_name
+  end
+
+  def highest_role
+    return "a #{roles.last.name}" if !roles.empty?
+    return "an Administrator" if roles.empty?
   end
 
   def date_joined
