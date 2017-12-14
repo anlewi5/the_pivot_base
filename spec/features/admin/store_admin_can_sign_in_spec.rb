@@ -23,6 +23,6 @@ RSpec.describe 'An unauthenticated store admin' do
 
     expect(current_path).to eq(admin_dashboard_index_path)
     expect(page).to have_content("Admin Dashboard")
-    expect(page).to have_content()
+    expect(page).to have_content("You're logged in as a Store Admin.")
   end
 end
