@@ -21,4 +21,3 @@
 .DS_Store
 /coverage
 # Ignore secrets.yml file
-
