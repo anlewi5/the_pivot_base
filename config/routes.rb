@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   end
 
 
-  resources :users , only: [:new, :create, :edit, :update]
+  resources :users , only: [:new, :create, :update]
 
   resources :orders, only: [:index, :new, :show, :update]
 
@@ -36,5 +36,7 @@ Rails.application.routes.draw do
   resources :carts, only: [:index, :create, :destroy]
 
   resources :categories, only: [:show], param: :category
+
+  get '/account/edit', to: 'users#edit', as: 'edit_user'
 
 end
