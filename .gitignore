@@ -21,5 +21,3 @@
 .DS_Store
 /coverage
 # Ignore secrets.yml file
-
-db/schema.rb
