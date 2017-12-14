@@ -1,0 +1,8 @@
+<h1><%= @store.name %></h1>
+
+<% @store.items.each do |item| %>
+  <p><%= item.title %></p>
+  <p><%= image_tag(item.image) %></p>
+  <p><%= item.price %></p>
+  <p><%= link_to "Add to cart", carts_path(item_id: item.id), method: :post, class: "badge badge-primary" %></p>
+<% end %>
