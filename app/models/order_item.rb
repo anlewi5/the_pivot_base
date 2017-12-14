@@ -2,10 +2,8 @@ class OrderItem < ApplicationRecord
   belongs_to :order
   belongs_to :item
 
-  before_save :calculate_total_price
-
-  def calculate_total_price
-    self.total_price = self.quantity * self.unit_price if self.quantity
+  def capture_transaction_details(quantity)
+    update(quantity: quantity, unit_price: item.price, total_price: quantity * item.price)
   end
 
   def self.sum_quantity
