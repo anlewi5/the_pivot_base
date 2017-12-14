@@ -49,7 +49,7 @@ describe "validations" do
     end
 
     it "can return the date a user joined" do
-      user = User.create(first_name: "McTest",last_name: "McTest", password: "testing", email: "tester@testmail", created_at: "2017-09-13 01:13:04 -0600")
+      user = create(:user, created_at: "2017-09-13 01:13:04 -0600")
       expect(user.date_joined).to eq("Sep. 13, 2017")
     end
   end
