@@ -22,6 +22,14 @@ class User < ApplicationRecord
     created_at.strftime('%b. %d, %Y')
   end
 
+  def platform_admin?
+    roles.exists?(name: 'Platform Admin')
+  end
+
+  def store_admin?
+    roles.exists?(name: 'Store Admin')
+  end
+
   def self.user_orders
     group(:email).joins(:orders).count
   end
