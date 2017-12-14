@@ -7,6 +7,6 @@ class Admin::DashboardController < ApplicationController
     else
       @orders = Order.all
     end
-    flash[:notice] = "You're logged in as an Administrator."
+    flash[:notice] = "You're logged in as #{current_user.highest_role}."
   end
 end
