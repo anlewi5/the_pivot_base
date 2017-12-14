@@ -6,37 +6,39 @@ class Admin::ItemsController < ApplicationController
 
   def new
     @item = Item.new
+    @stores = Store.all
+    @categories = Category.all
   end
 
   def create
-    @categories = Category.all
     @item = Item.new(item_params)
     if @item.save
       redirect_to admin_items_path
     else
-      render :new
+      redirect_to new_admin_item_path
     end
   end
 
   def update
-    @categories = Category.all
     @item = Item.find(params[:id])
     @item.update(item_params)
     if @item.save
       redirect_to admin_items_path
     else
-      render :edit
+      redirect_to edit_admin_item_path(@item)
     end
   end
 
   def edit
     @item = Item.find(params[:id])
+    @stores = Store.all
+    @categories = Category.all
   end
 
   private
 
   def item_params
-    params.require(:item).permit(:title, :description, :price, :image, :category_id)
+    params.require(:item).permit(:title, :description, :price, :store_id, :category_id, :image)
   end
 
   def require_admin
