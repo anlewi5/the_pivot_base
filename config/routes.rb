@@ -37,6 +37,4 @@ Rails.application.routes.draw do
 
   resources :categories, only: [:show], param: :category
 
-  get '/account/edit', to: 'users#edit', as: 'edit_user'
-
 end
