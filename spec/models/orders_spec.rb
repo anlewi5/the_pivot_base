@@ -46,8 +46,8 @@ RSpec.describe Order do
     end
 
     it "can add an item" do
-      user = User.create!(first_name: "Testy", last_name: "McTest", password: "testing", email: "tester@testmail")
-      order = user.orders.create!(status: "ordered")
+      user = create(:user)
+      order = create(:order, status: "ordered", user: user)
       category = create(:category)
       item = create(:item)
       item_hash = {item => 1}
