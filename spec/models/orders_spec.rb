@@ -31,18 +31,35 @@ RSpec.describe Order do
   end
 
   describe "instance methods" do
-    it "can return total price of items" do
-      gob = create(:user)
-      order = create(:order, status: "ordered", user: gob)
-      category = create(:category)
+    it "can return total price of the order" do
+      order = create(:order, status: "ordered")
       item_1 = create(:item, title: "Dove", price: 10.00)
       item_2 = create(:item, title: "Seal", price: 1.00)
-      item_not_included = create(:item, title: "Banana Stand", price: 100.00)
 
-      order.items << item_1
-      order.items  << item_2
+      item_hash = {}
+      item_hash[item_1] = 1
+      item_hash[item_2] = 1
+      order.add(item_hash)
 
       expect(order.total_price).to eq(11.0)
+    end
+
+    context "order price should not change when an item price changes" do
+      it "returns correct total_price after an item price changes" do
+        order = create(:order, status: "ordered")
+        item = create(:item, title: "Dove", price: 10.00)
+
+        item_hash = {}
+        item_hash[item] = 1
+        order.add(item_hash)
+
+        expect(order.total_price).to eq(10.00)
+
+        item.update(price: 12.00)
+
+        expect(order.total_price).to eq(10.00)
+        expect(order.total_price).to_not eq(12.00)
+      end
     end
 
     it "can add an item" do
