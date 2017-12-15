@@ -34,6 +34,10 @@ class User < ApplicationRecord
     roles.exists?(name: 'Store Manager')
   end
 
+  def registered_user?
+    roles.exists?(name: 'Registered User')
+  end
+
   def self.user_orders
     group(:email).joins(:orders).count
   end
