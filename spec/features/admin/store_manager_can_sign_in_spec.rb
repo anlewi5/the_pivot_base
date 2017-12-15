@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-RSpec.describe 'An authenticated store manager' do
+RSpec.feature 'An authenticated store manager' do
   let(:admin) { create(:admin) }
   let(:role) { create(:store_manager) }
 
-  it 'can visit the log in path and sign in' do
+  scenario 'can visit the log in path and sign in' do
     admin.roles << role
     expect(admin.roles).to include(role)
 
