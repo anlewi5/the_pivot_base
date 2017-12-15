@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :order do
     status 1
+    total_price { rand(1..100) }
     user
 
     transient do
