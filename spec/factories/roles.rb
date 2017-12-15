@@ -10,4 +10,8 @@ FactoryBot.define do
   factory :store_manager, class: Role do
     name "Store Manager"
   end
+
+  factory :registered_user, class: Role do
+    name "Registered User"
+  end
 end
