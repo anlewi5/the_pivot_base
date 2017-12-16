@@ -18,6 +18,10 @@ class Store < ApplicationRecord
     user_roles.create(user: user, role: role)
   end
 
+  def active_items
+    items.where(condition: "active")
+  end
+
   private
 
     def generate_url
