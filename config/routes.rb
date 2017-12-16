@@ -43,6 +43,6 @@ Rails.application.routes.draw do
 
   resources :stores, only: [:index, :new, :create]
 
-  get "/:store", to: "store#show", as: :store
+  get "/:store", to: "stores#show", as: :store
 
 end
