@@ -22,6 +22,13 @@ class Store < ApplicationRecord
     items.where(condition: "active")
   end
 
+  def update_status(status)
+    store_admin_role = Role.find_by(name: "Store Admin")
+
+    user_roles.first.update(role: store_admin_role)
+    update(status: status)
+  end
+
   private
 
     def generate_url
