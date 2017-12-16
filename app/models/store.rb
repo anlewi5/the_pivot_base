@@ -13,7 +13,7 @@ class Store < ApplicationRecord
 
   def associate_user(user)
     role = Role.find_by(name: "Registered User")
-    user_roles.create(user:user, role: role)
+    user_roles.create(user: user, role: role)
   end
 
   private
