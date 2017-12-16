@@ -22,6 +22,8 @@ RSpec.feature 'As a logged in user when I visit /stores/new' do
 
       expect(store.status).to eq("pending")
       expect(store.url).to eq("vandelay-industries")
+
+      expect(page).to have_content("You have successfully requested the creation of a new store, #{store.name}!")
       expect(current_path).to eq('/dashboard')
       expect(page).to have_link('My Stores')
 
