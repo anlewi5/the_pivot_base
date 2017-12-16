@@ -1,4 +1,7 @@
 class StoresController < ApplicationController
+
+  before_action :active_store?, only: [:show]
+
   def show
     @store = Store.find_by(url: params[:store])
   end
@@ -20,4 +23,10 @@ class StoresController < ApplicationController
     def store_params
       params.require(:store).permit(:name)
     end
+
+    def active_store?
+      store = Store.find_by(url: params[:store])
+      not_found unless store && store.active?
+    end
+
 end
