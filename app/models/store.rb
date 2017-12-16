@@ -8,7 +8,9 @@ class Store < ApplicationRecord
   enum status: ["pending", "active", "suspended"]
 
   def self.create_with_user(store_info, user)
-    create(store_info).associate_user(user)
+    store = create(store_info)
+    store.associate_user(user)
+    store
   end
 
   def associate_user(user)
