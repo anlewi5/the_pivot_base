@@ -9,7 +9,7 @@ RSpec.feature "As a logged in user when I visit a store" do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
       user.roles << role
 
-      store = create(:store)
+      store = create(:store, status: "active")
       item_1 = create(:item, store: store, condition: "active")
       item_2 = create(:item, store: store, condition: "active")
       item_3 = create(:item, store: store, condition: "retired")
@@ -26,8 +26,8 @@ RSpec.feature "As a logged in user when I visit a store" do
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
         user.roles << role
 
-        store_1 = create(:store)
-        store_2 = create(:store)
+        store_1 = create(:store, status: "active")
+        store_2 = create(:store, status: "active")
         item_1 = create(:item, store: store_1)
         item_2 = create(:item, store: store_2)
 
