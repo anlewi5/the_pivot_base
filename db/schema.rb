@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171214184024) do
+ActiveRecord::Schema.define(version: 20171216020612) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,7 +80,9 @@ ActiveRecord::Schema.define(version: 20171214184024) do
   create_table "user_roles", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "role_id"
+    t.bigint "store_id"
     t.index ["role_id"], name: "index_user_roles_on_role_id"
+    t.index ["store_id"], name: "index_user_roles_on_store_id"
     t.index ["user_id"], name: "index_user_roles_on_user_id"
   end
 
@@ -101,5 +103,6 @@ ActiveRecord::Schema.define(version: 20171214184024) do
   add_foreign_key "order_items", "orders"
   add_foreign_key "orders", "users"
   add_foreign_key "user_roles", "roles"
+  add_foreign_key "user_roles", "stores"
   add_foreign_key "user_roles", "users"
 end
