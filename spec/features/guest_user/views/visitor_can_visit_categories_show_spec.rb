@@ -23,7 +23,7 @@ describe "As a visitor I can visit category show page" do
     it "and I see an error message" do
       create(:category, title: "Magic")
 
-      expect { visit '/magic' }.to raise_error(ActionView::Template::Error)
+      expect { visit '/magic' }.to raise_error(ActionController::RoutingError)
     end
   end
 end
