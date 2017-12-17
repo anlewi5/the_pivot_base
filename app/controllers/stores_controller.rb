@@ -2,6 +2,10 @@ class StoresController < ApplicationController
 
   before_action :active_store?, only: [:show]
 
+  def index
+    @stores = Store.all_active_stores
+  end
+
   def show
     @store = Store.find_by(url: params[:store])
   end
