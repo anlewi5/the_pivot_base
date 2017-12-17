@@ -15,7 +15,9 @@ namespace :add_store_to_items do
     store = Store.find_by(name: "Little Shop of Funsies")
 
     items.each do |item|
-      unless item.store
+      if item.store
+        puts "#{item.title} already has a store."
+      else
         store.items << item
         puts "#{store.name} now has #{store.items.count} items."
       end
