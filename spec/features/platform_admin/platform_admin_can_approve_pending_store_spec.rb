@@ -25,7 +25,7 @@ feature "As a logged in platform admin," do
     scenario  "I should see a list of stores divided by 'pending', 'active', and 'suspended' tabs" do
       store_2
       store_3
-      click_on "Stores"
+      click_link "Stores", href: "/admin/stores"
 
       within(".pending_stores") do
         expect(page).to have_content(store_1.id)
@@ -51,7 +51,7 @@ feature "As a logged in platform admin," do
     feature "When I click 'Approve' for the pending company" do
       scenario "it shows up in the 'active' tab, and the user that requested this store has a role of store admin" do
         store_admin_role
-        click_on "Stores"
+        click_link "Stores", href: "/admin/stores"
         click_on "Approve"
 
         within(".active_stores") do
