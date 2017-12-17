@@ -62,5 +62,25 @@ feature "As a logged in platform admin," do
         expect(user.roles).to include(store_admin_role)
       end
     end
+
+    feature "When I click 'Reject' for the pending company" do
+      scenario "it shows up in the 'active' tab, and the user that requested this store has a role of store admin" do
+        store_admin_role
+        click_link "Stores", href: "/admin/stores"
+        click_on "Reject"
+
+        within(".suspended_stores") do
+          expect(page).to have_content(store_1.id)
+          expect(page).to have_content(store_1.name)
+        end
+
+        within(".active_stores") do
+          expect(page).not_to have_content(store_1.id)
+          expect(page).not_to have_content(store_1.name)
+        end
+
+        expect(user.roles).to include(store_admin_role)
+      end
+    end
   end
 end
