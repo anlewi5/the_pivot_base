@@ -56,7 +56,7 @@
                  </th>
                  <td><%= store.name %></td>
                  <td class="status"><%= store.status.capitalize %></td>
-                 <td><%= link_to "Suspend", root_path, method: :put, class: "badge badge-warning" %></td>
+                 <td><%= link_to "Suspend", admin_store_path(store, status: "suspended"), method: :put, class: "badge badge-warning" %></td>
                  <td></td>
                </tr>
              <% end %>
@@ -81,7 +81,7 @@
                  </th>
                  <td><%= store.name %></td>
                  <td class="status"><%= store.status.capitalize %></td>
-                 <td><%= link_to "Reactivate", root_path, method: :put, class: "badge badge-success" %></td>
+                 <td><%= link_to "Reactivate", admin_store_path(store, status: "active"), method: :put, class: "badge badge-success" %></td>
                </tr>
              <% end %>
             </tbody>
