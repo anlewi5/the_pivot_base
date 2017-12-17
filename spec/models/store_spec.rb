@@ -26,6 +26,34 @@ RSpec.describe Store do
         expect(store.status).to eq("active")
         expect(user.roles).to include(store_admin_role)
       end
+
+      context "a store is active" do
+        it "changes the status of an active store to suspended" do
+          store_1 = create(:store, status: "active")
+          user = create(:user)
+          store_admin_role = create(:store_admin)
+
+          create(:user_role, user: user, role: store_admin_role, store: store_1)
+
+          store_1.update_status("suspended")
+
+          expect(store_1.status).to eq("suspended")
+        end
+      end
+
+      context "a store is suspended" do
+        it "changes the status of a suspended store to active" do
+          store_2 = create(:store, status: "suspended")
+          user = create(:user)
+          store_admin_role = create(:store_admin)
+
+          create(:user_role, user: user, role: store_admin_role, store: store_2)
+
+          store_2.update_status("active")
+
+          expect(store_2.status).to eq("active")
+        end
+      end
     end
   end
 end
