@@ -64,7 +64,7 @@ feature "As a logged in platform admin," do
     end
 
     feature "When I click 'Reject' for the pending company" do
-      scenario "it shows up in the 'active' tab, and the user that requested this store has a role of store admin" do
+      scenario "it shows up in the 'suspended' tab, and the user that requested this store has a role of store admin" do
         store_admin_role
         click_link "Stores", href: "/admin/stores"
         click_on "Reject"
