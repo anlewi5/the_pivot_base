@@ -29,6 +29,10 @@ class Store < ApplicationRecord
     update(status: status)
   end
 
+  def self.all_active_stores
+    where(status: "active")
+  end
+
   private
 
     def generate_url
