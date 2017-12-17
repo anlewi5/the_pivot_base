@@ -19,7 +19,7 @@ class Store < ApplicationRecord
   end
 
   def active_items
-    items.where(condition: "active")
+    items.active
   end
 
   def update_status(status)
@@ -27,10 +27,6 @@ class Store < ApplicationRecord
 
     user_roles.first.update(role: store_admin_role)
     update(status: status)
-  end
-
-  def self.all_active_stores
-    where(status: "active")
   end
 
   private
