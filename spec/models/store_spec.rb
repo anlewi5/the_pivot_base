@@ -17,8 +17,9 @@ RSpec.describe Store do
     end
   end
   describe "#instance_methods" do
+    let(:store) { create(:store) }
+    
     describe "#active_items" do
-      let(:store) { create(:store) }
       it "returns only active items" do
         item_1 = create(:item, store: store, condition: "active")
         item_2 = create(:item, store: store, condition: "retired")
