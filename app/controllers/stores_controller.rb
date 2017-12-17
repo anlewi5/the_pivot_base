@@ -3,7 +3,7 @@ class StoresController < ApplicationController
   before_action :active_store?, only: [:show]
 
   def index
-    @stores = Store.all_active_stores
+    @stores = Store.active
   end
 
   def show
