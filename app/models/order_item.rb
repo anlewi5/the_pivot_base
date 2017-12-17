@@ -1,9 +1,11 @@
 class OrderItem < ApplicationRecord
   belongs_to :order
   belongs_to :item
+  belongs_to :store
+  delegate :store, to: :item
 
   def capture_transaction_details(quantity)
-    update(quantity: quantity, unit_price: item.price, total_price: quantity * item.price)
+    update(quantity: quantity, unit_price: item.price, total_price: quantity * item.price, store: item.store)
   end
 
   def self.sum_quantity
