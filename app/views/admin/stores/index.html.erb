@@ -31,8 +31,8 @@
                  </th>
                  <td><%= store.name %></td>
                  <td class="status"><%= store.status.capitalize %></td>
-                 <td><%= link_to "Approve", admin_store_path(store, status: "active"), method: :put, class: "badge badge-success" %></td>
-                 <td><%= link_to "Reject", root_path, method: :put, class: "badge badge-warning" %></td>
+                 <td><%= link_to "Approve", admin_store_path(store, status: "active", initial_req: true), method: :put, class: "badge badge-success" %></td>
+                 <td><%= link_to "Reject", admin_store_path(store, status: "suspended", initial_req: true), method: :put, class: "badge badge-warning" %></td>
                </tr>
              <% end %>
             </tbody>
