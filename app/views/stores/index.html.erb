@@ -1,0 +1,17 @@
+<body>
+
+  <div class="container">
+    <div class="row">
+      <% @stores.each do |store| %>
+        <div class="center-block">
+          <div class="card border-white" style="width: 15rem;">
+            <div class="card-body">
+              <center><p><strong><%= link_to store.name, store_path(store.url) %></strong></p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+</body>
