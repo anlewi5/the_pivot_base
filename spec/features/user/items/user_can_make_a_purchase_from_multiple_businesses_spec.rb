@@ -3,6 +3,9 @@ require 'rails_helper'
 RSpec.feature "As a logged in user with items from different stores in my cart" do
   before :each do
     user = create(:user)
+    registered_user_role = create(:registered_user)
+
+    create(:user_role, user: user, role: registered_user_role)
 
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
