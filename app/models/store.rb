@@ -22,10 +22,11 @@ class Store < ApplicationRecord
     items.active
   end
 
-  def update_status(status)
-    store_admin_role = Role.find_by(name: "Store Admin")
+  def update_status(status, initial_req = nil)
+    if initial_req
+      promote_creator_to_admin
+    end
 
-    user_roles.first.update(role: store_admin_role)
     update(status: status)
   end
 
@@ -33,5 +34,10 @@ class Store < ApplicationRecord
 
     def generate_url
       self.url = name.parameterize
+    end
+
+    def promote_creator_to_admin
+      store_admin_role = Role.find_by(name: "Store Admin")
+      user_roles.first.update(role: store_admin_role)
     end
 end
