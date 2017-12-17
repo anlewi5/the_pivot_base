@@ -14,17 +14,31 @@ RSpec.describe Store do
       end
     end
 
-    describe "#update_status(status)" do
-      it "changes the status of a pending store to active" do
-        user = create(:user)
-        registered_user_role = create(:registered_user)
-        store_admin_role = create(:store_admin)
+    describe "#update_status(status, intial_req)" do
+      context "a store has been requested" do
+        it "changes the status of a pending store to active" do
+          user = create(:user)
+          registered_user_role = create(:registered_user)
+          store_admin_role = create(:store_admin)
 
-        user_roles = create(:user_role, user: user, role: registered_user_role, store: store)
-        store.update_status("active")
+          user_roles = create(:user_role, user: user, role: registered_user_role, store: store)
+          store.update_status("active", "true")
 
-        expect(store.status).to eq("active")
-        expect(user.roles).to include(store_admin_role)
+          expect(store.status).to eq("active")
+          expect(user.roles).to include(store_admin_role)
+        end
+
+        it "changes the status of a pending store to suspended" do
+          user = create(:user)
+          registered_user_role = create(:registered_user)
+          store_admin_role = create(:store_admin)
+
+          user_roles = create(:user_role, user: user, role: registered_user_role, store: store)
+          store.update_status("suspended", "true")
+
+          expect(store.status).to eq("suspended")
+          expect(user.roles).to include(store_admin_role)
+        end
       end
 
       context "a store is active" do
