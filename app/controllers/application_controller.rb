@@ -9,10 +9,8 @@ class ApplicationController < ActionController::Base
 
 
   def current_admin?
-    platform_admin_role = Role.find_by(name: "Platform Admin")
-
     (current_user && current_user.admin?) ||
-      (current_user && current_user.roles.include?(platform_admin_role))
+      (current_user && current_user.platform_admin?)
   end
 
 
