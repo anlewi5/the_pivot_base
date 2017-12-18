@@ -23,6 +23,12 @@ class User < ApplicationRecord
     created_at.strftime('%b. %d, %Y')
   end
 
+  def current_admin?
+    return true if platform_admin?
+    return true if store_admin?
+    return true if store_manager?
+  end
+
   def platform_admin?
     roles.exists?(name: 'Platform Admin')
   end
