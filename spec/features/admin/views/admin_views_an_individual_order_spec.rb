@@ -16,7 +16,8 @@ feature "Admin can view individual order pages" do
     visit order_path(order)
 
     expect(page).to have_content(order.date)
-    expect(page).to have_content("Gob Bluth")
+    expect(page).to have_content(admin.first_name)
+    expect(page).to have_content(admin.last_name)
     expect(page).to have_content(user.address)
     within("#item-#{item_1.id}") do
       within(".title") { expect(page).to have_link(item_1.title) }
@@ -33,4 +34,3 @@ feature "Admin can view individual order pages" do
     end
   end
 end
-
