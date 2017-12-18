@@ -13,7 +13,7 @@ RSpec.feature "Admin item creation" do
 
   context "As an authenticated admin" do
     it "I can create an item" do
-      admin.roles << role
+      create(:user_role, user: admin, role: role, store: store)
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
 
       visit admin_items_path
@@ -32,7 +32,7 @@ RSpec.feature "Admin item creation" do
     end
 
     it "I can create an item without an image and it defaults" do
-      admin.roles << role
+      create(:user_role, user: admin, role: role, store: store)
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
       visit admin_items_path
 
