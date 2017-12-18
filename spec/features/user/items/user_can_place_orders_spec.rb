@@ -4,6 +4,8 @@ RSpec.feature "User can place an order" do
   it "and see the message 'order was successfully placed'" do
 
     user = create(:user)
+    role = create(:registered_user)
+    user.roles << role
     category = create(:category)
     item = create(:item, category: category)
 

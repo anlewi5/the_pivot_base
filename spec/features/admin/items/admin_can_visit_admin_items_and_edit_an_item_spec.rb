@@ -6,6 +6,8 @@ RSpec.describe 'an admin can visit admin dashboard' do
     it 'when clicked that link should be the admin item index with admin functionality' do
       create(:item)
       admin = create(:admin)
+      role = create(:store_admin)
+      admin.roles << role
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
 
       visit admin_items_path
