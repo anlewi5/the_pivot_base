@@ -10,8 +10,9 @@ RSpec.feature "As a logged in user with items from different stores in my cart" 
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
     stores = create_list(:store, 2, status: "active")
-    create(:item, store: stores.first)
-    create(:item, store: stores.last)
+    item_1 = create(:item, store: stores.first, price: 2.00)
+    item_2 = create(:item, store: stores.last, price: 1.00)
+    item_3 = create(:item, store: stores.last, price: 10.00)
 
     visit '/'
     click_on "Stores"
@@ -19,7 +20,8 @@ RSpec.feature "As a logged in user with items from different stores in my cart" 
     click_on "Add to cart"
     click_on "Stores"
     click_on stores.second.name
-    click_on "Add to cart"
+    click_link "Add to cart", href: "/carts?item_id=#{item_2.id}"
+    click_link "Add to cart", href: "/carts?item_id=#{item_3.id}"
     click_on "Cart"
   end
 
@@ -27,5 +29,13 @@ RSpec.feature "As a logged in user with items from different stores in my cart" 
     click_on "Checkout"
     expect(current_path).to eq(orders_path)
     expect(page).to have_content("Order was successfully placed")
+  end
+
+  scenario "I make a purchase and see two orders on the page with the total price of each order" do
+    click_on "Checkout"
+
+    expect(page).to have_css(".order", count: 2)
+    expect(page).to have_content("$2.00")
+    expect(page).to have_content("$11.00")
   end
 end
