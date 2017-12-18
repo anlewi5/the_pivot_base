@@ -1,11 +1,19 @@
 require 'rails_helper'
 
 RSpec.feature "Admin item creation" do
+  let(:admin) { create(:user) }
+  let(:role) { create(:store_admin) }
+  let(:store) { create(:store) }
+  let(:category) { create(:category) }
+
+  before :each do
+    store
+    category
+  end
+
   context "As an authenticated admin" do
     it "I can create an item" do
-      admin = build(:admin)
-      store = create(:store)
-      category = create(:category)
+      admin.roles << role
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
 
       visit admin_items_path
@@ -24,10 +32,7 @@ RSpec.feature "Admin item creation" do
     end
 
     it "I can create an item without an image and it defaults" do
-      admin = build(:admin)
-      store = create(:store)
-      category = create(:category)
-
+      admin.roles << role
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
       visit admin_items_path
 
