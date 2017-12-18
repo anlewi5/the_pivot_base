@@ -3,13 +3,14 @@ require 'rails_helper'
 RSpec.describe 'an admin can visit admin dashboard' do
   describe 'and see a link for all items' do
     it 'when clicked that link should be the admin item index with admin functionality' do
+      store = create(:store, status: "active")
       admin_user = create(:user)
       role = create(:store_manager)
-      admin_user.roles << role
+      create(:user_role, user: admin_user, role: role, store: store)
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin_user)
 
       category = create(:category)
-      items = create_list(:item, 2, category: category)
+      items = create_list(:item, 2, category: category, store: store)
       item_one = items.first
       item_two = items.last
 
