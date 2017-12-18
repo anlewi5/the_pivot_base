@@ -39,8 +39,4 @@ class Admin::ItemsController < ApplicationController
   def item_params
     params.require(:item).permit(:title, :description, :price, :store_id, :category_id, :image)
   end
-
-  def require_admin
-    render file: "/public/404" unless current_user.current_admin?
-  end
 end
