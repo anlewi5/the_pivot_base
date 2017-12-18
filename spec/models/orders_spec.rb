@@ -32,26 +32,29 @@ RSpec.describe Order do
 
   describe "instance methods" do
     it "can return total price of the order" do
-      order = create(:order, status: "ordered")
-      item_1 = create(:item, title: "Dove", price: 10.00)
-      item_2 = create(:item, title: "Seal", price: 1.00)
+      user = create(:user)
+      store = create(:store)
+      item_1 = create(:item, title: "Dove", price: 10.00, store: store)
+      item_2 = create(:item, title: "Seal", price: 1.00, store: store)
 
       item_hash = {}
       item_hash[item_1] = 1
       item_hash[item_2] = 1
-      order.add(item_hash)
+      orders = OrderCreationService.create_from_cart(item_hash, user)
+      order = orders.first
 
       expect(order.total_price).to eq(11.0)
     end
 
     context "order price should not change when an item price changes" do
       it "returns correct total_price after an item price changes" do
-        order = create(:order, status: "ordered")
+        user = create(:user)
         item = create(:item, title: "Dove", price: 10.00)
 
         item_hash = {}
         item_hash[item] = 1
-        order.add(item_hash)
+        orders = OrderCreationService.create_from_cart(item_hash, user)
+        order = orders.first
 
         expect(order.total_price).to eq(10.00)
 
@@ -60,20 +63,6 @@ RSpec.describe Order do
         expect(order.total_price).to eq(10.00)
         expect(order.total_price).to_not eq(12.00)
       end
-    end
-
-    it "can add an item" do
-      user = create(:user)
-      order = create(:order, status: "ordered", user: user)
-      category = create(:category)
-      item = create(:item)
-      item_hash = {item => 1}
-
-      expect(order.items).to eq([])
-
-      order.add(item_hash)
-
-      expect(order.items.first).to eq(item)
     end
 
     it "can return the order date" do
