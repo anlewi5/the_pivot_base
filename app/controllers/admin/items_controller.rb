@@ -1,7 +1,7 @@
 class Admin::ItemsController < ApplicationController
   before_action :require_admin
   def index
-    @items = Item.all
+    @items = Item.all_for_admin(current_user)
   end
 
   def new

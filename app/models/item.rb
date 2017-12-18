@@ -21,4 +21,12 @@ class Item < ApplicationRecord
     group(:title).joins(:orders).group(:status).count
   end
 
+  def self.all_for_admin(user)
+    if user.platform_admin?
+      Item.all
+    else
+      where(store: user.stores)
+    end
+  end
+
 end
