@@ -57,4 +57,31 @@ describe Item do
       expect(item).to respond_to(:orders)
     end
   end
+
+  describe ".class_methods" do
+    describe ".all_for_admin(user)" do
+      it "returns all items for a platform_admin" do
+        store = create(:store)
+        items = create_list(:item, 3, store: store)
+        platform_admin = create(:user)
+        platform_admin_role = create(:platform_admin)
+        create(:user_role, user: platform_admin, role: platform_admin_role)
+
+        expect(Item.all_for_admin(platform_admin)).to eq(items)
+      end
+
+      it "returns items associated with a store_admin/store_manager and does not return other items" do
+        stores = create_list(:store, 2)
+        items_store1 = create_list(:item, 2, store: stores.first)
+        item_store2 = create(:item, store: stores.last)
+        store_admin = create(:user)
+        store_admin_role = create(:store_admin)
+        create(:user_role, user: store_admin, role: store_admin_role, store: stores.first)
+
+        expect(Item.all_for_admin(store_admin)).to include(items_store1.first)
+        expect(Item.all_for_admin(store_admin)).to include(items_store1.last)
+        expect(Item.all_for_admin(store_admin)).to_not include(item_store2)
+      end
+    end
+  end
 end
