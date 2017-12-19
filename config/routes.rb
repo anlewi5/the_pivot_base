@@ -38,7 +38,7 @@ Rails.application.routes.draw do
   resources :categories, only: [:show], param: :category
 
   namespace :user do
-    resources :stores, only: [:index]
+    resources :stores, only: [:index, :edit, :update]
   end
 
   resources :stores, only: [:index, :new, :create]
