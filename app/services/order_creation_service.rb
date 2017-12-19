@@ -14,7 +14,8 @@ class OrderCreationService
 
     def self.create_orders(orders_data, user)
       orders_data.map do |order_details|
-        order = Order.create(status: "ordered", user: user)
+        store = order_details[0][0].store
+        order = Order.create(status: "ordered", user: user, store: store)
         create_order_items(order, order_details)
         order.update_total_price
         order
