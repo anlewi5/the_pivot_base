@@ -3,6 +3,7 @@ FactoryBot.define do
     status 1
     total_price { rand(1..100) }
     user
+    store
 
     transient do
       items_with_quantity [{create(:item) => 1}]
