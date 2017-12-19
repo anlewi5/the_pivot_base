@@ -67,7 +67,9 @@ describe Item do
         platform_admin_role = create(:platform_admin)
         create(:user_role, user: platform_admin, role: platform_admin_role)
 
-        expect(Item.all_for_admin(platform_admin)).to eq(items)
+        expect(Item.all_for_admin(platform_admin)).to include(items.first)
+        expect(Item.all_for_admin(platform_admin)).to include(items[1])
+        expect(Item.all_for_admin(platform_admin)).to include(items.last)
       end
 
       it "returns items associated with a store_admin/store_manager and does not return other items" do
