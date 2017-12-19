@@ -1,3 +1,11 @@
+<% if @stores.empty? %>
+  <p>You don't have any stores.<p>
+  <p>Click <%= link_to "here", new_store_path, color: 'blue' %> to apply for one!<p>
+<% end %>
+
 <% @stores.each do |store| %>
-  <%= store.name %> (<%= store.status %>)<br>
+  <div class='store'>
+    <%= store.name %> (<%= store.status %>)<br>
+    <%= link_to "Edit", edit_user_store_path(store) %>
+  </div>
 <% end %>
