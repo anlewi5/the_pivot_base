@@ -72,7 +72,7 @@ RSpec.describe Order do
     end
   end
 
-  describe "class methods" do
+  describe ".class.methods" do
     it "can count by status" do
       create(:order, status: "ordered")
       create(:order, status: "ordered")
@@ -84,25 +84,56 @@ RSpec.describe Order do
       expect(Order.count_by_status).to eq(status_count)
     end
 
-    it "can filter by status" do
-      ordered   = create(:order, status: "ordered")
-      paid_1    = create(:order, status: "paid")
-      paid_2    = create(:order, status: "paid")
-      cancelled = create(:order, status: "cancelled")
+    describe ".filter_by_status(status, user)" do
+      it "returns the order by status" do
+        user = create(:user)
+        role = create(:platform_admin)
+        create(:user_role, user: user, role: role)
 
-      all_ordered   = Order.filter_by_status("ordered")
-      all_paid      = Order.filter_by_status("paid")
-      all_cancelled = Order.filter_by_status("cancelled")
+        ordered   = create(:order, status: "ordered")
+        paid_1    = create(:order, status: "paid")
+        paid_2    = create(:order, status: "paid")
+        cancelled = create(:order, status: "cancelled")
 
-      expect(all_ordered).to include(ordered)
-      expect(all_ordered.count).to eq(1)
+        all_ordered   = Order.filter_by_status("ordered", user)
+        all_paid      = Order.filter_by_status("paid", user)
+        all_cancelled = Order.filter_by_status("cancelled", user)
 
-      expect(all_paid).to include(paid_1)
-      expect(all_paid).to include(paid_2)
-      expect(all_paid.count).to eq(2)
+        expect(all_ordered).to include(ordered)
+        expect(all_ordered.count).to eq(1)
 
-      expect(all_cancelled).to include(cancelled)
-      expect(all_cancelled.count).to eq(1)
+        expect(all_paid).to include(paid_1)
+        expect(all_paid).to include(paid_2)
+        expect(all_paid.count).to eq(2)
+
+        expect(all_cancelled).to include(cancelled)
+        expect(all_cancelled.count).to eq(1)
+      end
+    end
+
+    describe ".all_for_admin(user)" do
+      it "returns all orders for a platform_admin" do
+        store = create(:store)
+        orders = create_list(:order, 3, store: store)
+        platform_admin = create(:user)
+        platform_admin_role = create(:platform_admin)
+        create(:user_role, user: platform_admin, role: platform_admin_role)
+
+        expect(Order.all_for_admin(platform_admin)).to eq(orders)
+      end
+
+      it "returns orders associated with a store_admin/store_manager and does not return other items" do
+        stores = create_list(:store, 2)
+        orders_store1 = create_list(:order, 2, store: stores.first)
+        order_store2 = create(:order, store: stores.last)
+        store_admin = create(:user)
+        store_admin_role = create(:store_admin)
+        create(:user_role, user: store_admin, role: store_admin_role, store: stores.first)
+
+        expect(Order.all_for_admin(store_admin)).to include(orders_store1.first)
+        expect(Order.all_for_admin(store_admin)).to include(orders_store1.last)
+        expect(Order.all_for_admin(store_admin)).to_not include(order_store2)
+      end
     end
   end
 end
