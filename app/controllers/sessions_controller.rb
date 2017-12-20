@@ -34,7 +34,7 @@ class SessionsController < ApplicationController
       redirect_to platform_dashboard_index_path
     elsif @user.current_admin?
       redirect_to admin_dashboard_index_path
-    elsif @user.role == "default"
+    elsif @user.registered_user?
       redirect_to dashboard_index_path
     end
   end

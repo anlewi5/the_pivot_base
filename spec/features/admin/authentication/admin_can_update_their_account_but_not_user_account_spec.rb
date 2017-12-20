@@ -21,7 +21,7 @@ describe "As a logged in Admin" do
 
     click_on "Logout"
     login_user(new_email_address, new_password)
-    expect(current_path).to eq("/admin/dashboard")
+    expect(current_path).to eq("/platform/dashboard")
   end
 
   it "But I cannot modify any other user’s account data" do
