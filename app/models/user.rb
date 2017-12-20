@@ -45,6 +45,10 @@ class User < ApplicationRecord
     roles.exists?(name: 'Registered User')
   end
 
+  def role_name_for_store(store)
+    user_roles.find_by(store: store).role.name
+  end
+
   def self.user_orders
     group(:email).joins(:orders).count
   end
