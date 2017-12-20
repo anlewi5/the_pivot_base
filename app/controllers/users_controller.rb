@@ -16,12 +16,8 @@ class UsersController < ApplicationController
   end
 
   def update
-    if current_user.current_admin?
-      current_user.update(user_params)
-      redirect_to admin_dashboard_index_path
-    elsif current_user != nil
-      current_user.update(user_params)
-      redirect_to dashboard_index_path
+    if current_user.update(user_params)
+      redirect
     else
       render file: "/public/404"
     end
@@ -38,4 +34,13 @@ class UsersController < ApplicationController
     params.require(:user).permit(:first_name, :last_name, :email, :password, :address)
   end
 
+  def redirect
+    if current_user.platform_admin?
+      redirect_to platform_dashboard_index_path
+    elsif current_user.registered_user?
+      redirect_to dashboard_index_path
+    else
+      redirect_to admin_dashboard_index_path
+    end
+  end
 end
