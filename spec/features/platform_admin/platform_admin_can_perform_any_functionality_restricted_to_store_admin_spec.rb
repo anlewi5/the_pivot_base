@@ -124,14 +124,13 @@ RSpec.feature 'As an authenticated Platform Admin' do
       expect(page).to have_content(user_2.first_name)
       expect(page).not_to have_content('Stella')
       within(".user#{user_1.id}") do
-        click_on "Edit"
+        click_on "Info"
       end
 
       expect(current_path).to eq(edit_platform_user_path(user_1))
       expect(page).to have_content("Stella's Tea")
 
       click_on "Fire"
-
       expect(current_path).to eq(edit_platform_user_path(user_1))
       expect(page).not_to have_content("Stella's Tea")
     end
