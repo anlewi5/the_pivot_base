@@ -1,4 +1,3 @@
-
 class Platform::OrdersController < ApplicationController
   before_action :require_admin
 
