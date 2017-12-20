@@ -6,7 +6,7 @@ class Admin::ItemsController < ApplicationController
 
   def new
     @item = Item.new
-    @stores = Store.all
+    @stores = Store.all_for_admin(current_user)
     @categories = Category.all
   end
 
@@ -30,7 +30,7 @@ class Admin::ItemsController < ApplicationController
 
   def edit
     @item = Item.find(params[:id])
-    @stores = Store.all
+    @stores = Store.all_for_admin(current_user)
     @categories = Category.all
   end
 

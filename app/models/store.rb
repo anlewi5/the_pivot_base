@@ -31,6 +31,14 @@ class Store < ApplicationRecord
     update(status: status)
   end
 
+  def self.all_for_admin(user)
+    if user.platform_admin?
+      Store.all
+    else
+      user.stores
+    end
+  end
+
   private
 
     def generate_url
