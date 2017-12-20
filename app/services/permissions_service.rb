@@ -25,6 +25,9 @@ class PermissionsService
     def platform_admin_permissions
       return true if controller == 'users' && action.in?(%w(edit update))
       return true if controller == 'admin/stores' && action.in?(%w(index update))
+      return true if controller == 'platform/orders' && action.in?(%w(index))
+      return true if controller == 'platform/dashboard' && action == 'index'
+      return true if controller == 'platform/items' && action.in?(%w(index edit update))
       store_admin_permissions
     end
 
