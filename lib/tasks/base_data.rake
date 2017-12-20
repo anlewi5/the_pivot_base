@@ -82,8 +82,8 @@ task load_base_data: :environment do
     items << category.items.create(store: store_1, description: Faker::Hipster.sentence, price: randomizer.rand(2.00..100.00).round(2), title: Faker::SiliconValley.unique.invention, image: File.new("#{Rails.root}/app/assets/images/five_stores/silicon_valley.jpeg", "r"))
     items << category.items.create(store: store_2, description: Faker::Hipster.sentence, price: randomizer.rand(2.00..100.00).round(2), title: Faker::Pokemon.unique.move, image: File.new("#{Rails.root}/app/assets/images/five_stores/pokestore.jpeg", "r"))
     items << category.items.create(store: store_3, description: Faker::Hipster.sentence, price: randomizer.rand(2.00..100.00).round(2), title: Faker::Beer.unique.name, image: File.new("#{Rails.root}/app/assets/images/five_stores/drink.jpeg", "r"))
-    items << category.items.create(store: store_4, description: Faker::Hipster.sentence, price: randomizer.rand(2.00..100.00).round(2), title: Faker::Superhero.unique.power, image: File.new("#{Rails.root}/app/assets/images/five_stores/POW.jpeg", "r"))
-    items << category.items.create(store: store_5, description: Faker::Hipster.sentence, price: randomizer.rand(2.00..100.00).round(2), title: Faker::Music.unique.instrument, image: File.new("#{Rails.root}/app/assets/images/five_stores/much_sounds.jpeg", "r"))
+    items << category.items.create(store: store_4, description: Faker::Hipster.sentence, price: randomizer.rand(2.00..100.00).round(2), title: Faker::Superhero.unique.power, image: File.new("#{Rails.root}/app/assets/images/five_stores/POW.jpg", "r"))
+    items << category.items.create(store: store_5, description: Faker::Hipster.sentence, price: randomizer.rand(2.00..100.00).round(2), title: Faker::Music.unique.instrument, image: File.new("#{Rails.root}/app/assets/images/five_stores/much_sounds.png", "r"))
   end
   puts "#{Item.count - item_count_before} Items Created! (This should 50 the first time.)"
 
