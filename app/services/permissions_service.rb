@@ -48,6 +48,7 @@ class PermissionsService
       return true if controller == 'user/stores' && action.in?(%w(index))
       return true if controller == 'stores' && action.in?(%w(index show new create))
       return true if controller == 'orders' && action.in?(%w(index show))
+      return true if controller == 'users' && action.in?(%w(edit update))
       guest_user_permissions
     end
 
