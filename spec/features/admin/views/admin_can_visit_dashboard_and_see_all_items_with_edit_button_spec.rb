@@ -16,7 +16,7 @@ RSpec.describe 'an admin can visit admin dashboard' do
 
       visit admin_dashboard_index_path
 
-      click_on "View Items"
+      click_on "My Items"
 
       expect(page).to have_content(item_one.title)
       expect(page).to have_content(item_one.price)
