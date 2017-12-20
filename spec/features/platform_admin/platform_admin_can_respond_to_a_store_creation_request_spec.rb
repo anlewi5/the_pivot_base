@@ -25,7 +25,6 @@ feature "As a logged in platform admin," do
     scenario  "I should see a list of stores divided by 'pending', 'active', and 'suspended' tabs" do
       store_2
       store_3
-      save_and_open_page
       click_link "All Stores", href: "/admin/stores"
 
       within(".pending_stores") do
