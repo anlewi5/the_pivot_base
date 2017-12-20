@@ -4,7 +4,7 @@ namespace :add_store_to_items do
     if Store.find_by(name: "Little Shop of Funsies")
       puts "Store already exists"
     else
-      Store.create(name: "Little Shop of Funsies", status: "active")
+      store = Store.create(name: "Little Shop of Funsies", status: "active")
       puts "#{store.name} created"
     end
   end
