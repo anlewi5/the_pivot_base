@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 feature "As a logged in platform admin," do
-  feature "when I visit /admin/dashboard and click 'Stores'" do
+  feature "when I visit /platform/dashboard and click 'Stores'" do
     let(:registered_user_role) { create(:registered_user) }
     let(:store_admin_role) { create(:store_admin) }
     let(:platform_admin_role) { create(:platform_admin) }

@@ -118,32 +118,22 @@ RSpec.feature 'As an authenticated Platform Admin' do
       expect(page).to have_content("Stella Tea")
     end
 
-    scenario 'and view/edit every user' do
+    scenario 'and change their store associations' do
       visit platform_users_path
-
-      expect(page).to have_content(user_1.name)
-      expect(page).to have_content(user_2.name)
+      expect(page).to have_content(user_1.first_name)
+      expect(page).to have_content(user_2.first_name)
       expect(page).not_to have_content('Stella')
       within(".user#{user_1.id}") do
         click_on "Edit"
       end
 
       expect(current_path).to eq(edit_platform_user_path(user_1))
+      expect(page).to have_content("Stella's Tea")
 
-      fill_in 'user[name]', with: "Stella"
-      click_on 'Update'
+      click_on "Fire"
 
-      expect(current_path).to eq(platform_users_path)
-      expect(page).to have_content('Stella')
-    end
-
-    scenario 'and change roles' do
-      visit edit_platform_user_path(user_1)
-
-    end
-
-    scenario 'and alter their associations' do
-
+      expect(current_path).to eq(edit_platform_user_path(user_1))
+      expect(page).not_to have_content("Stella's Tea")
     end
   end
 end
