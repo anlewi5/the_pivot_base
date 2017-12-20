@@ -36,7 +36,7 @@ class PermissionsService
 
     def store_manager_permissions
       return true if controller == 'admin/dashboard' && action == 'index'
-      return true if controller == 'admin/items' && action.in?(%w(index show edit update))
+      return true if controller == 'admin/items' && action.in?(%w(index show new create edit update))
       return true if controller == 'orders' && action.in?(%w(update new))
       return true if controller == 'user/stores' && action.in?(%w(edit update))
       registered_user_permissions
