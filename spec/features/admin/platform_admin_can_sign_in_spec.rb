@@ -23,7 +23,7 @@ RSpec.describe 'An unauthenticated platform admin' do
 
     click_button 'Login'
 
-    expect(current_path).to eq('/admin/dashboard')
+    expect(current_path).to eq('/platform/dashboard')
     expect(page).to have_content("You're logged in as a Platform Admin.")
     expect(page).to have_content('Admin Dashboard')
   end

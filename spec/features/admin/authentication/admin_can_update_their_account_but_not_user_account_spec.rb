@@ -2,7 +2,8 @@ require "rails_helper"
 
 describe "As a logged in Admin" do
   let(:admin) { create(:user, email: "admin@example.com")}
-  let(:role) { create(:platform_admin) }
+  let(:role) { create(:store_admin) }
+  let(:platform) { create(:platform_admin) }
 
   it "I can modify my account data" do
     admin.roles << role
@@ -39,9 +40,9 @@ describe "As a logged in Admin" do
 
   it "returns a welcome message for admins" do
     allow_any_instance_of(ApplicationController).to receive(:current_user). and_return(admin)
-    admin.roles << role
+    admin.roles << platform
 
-    visit admin_dashboard_index_path
+    visit platform_dashboard_index_path
     expect(page).to have_content("You're logged in as a Platform Admin.")
   end
 

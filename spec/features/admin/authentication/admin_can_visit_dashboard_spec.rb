@@ -56,7 +56,7 @@ feature "as an Admin" do
 
       expect(page).to have_content("You're logged in as a Platform Admin.")
 
-      expect(current_path).to eq(admin_dashboard_index_path)
+      expect(current_path).to eq(platform_dashboard_index_path)
     end
   end
 end
