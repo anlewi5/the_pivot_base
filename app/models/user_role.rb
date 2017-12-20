@@ -3,9 +3,9 @@ class UserRole < ApplicationRecord
   belongs_to :role
   belongs_to :store, optional: true
 
-  def self.admin_update(user_id, store_id, fire = nil)
-    user_role = find_by(user_id: user_id, store_id: store_id)
-    return user_role.destroy if fire
+  def self.admin_update(params)
+    user_role = find_by(user_id: params[:id], store_id: params[:store_id])
+    return user_role.destroy if params[:fire]
 
     promote_user(user_role)
   end
