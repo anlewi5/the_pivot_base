@@ -1,0 +1,13 @@
+<div class="container">
+  <div class="row">
+    <div class="col-3">
+    <table class="table">
+      <tr></td><%= @user.full_name %></tr></td>
+      <tr></td><%= @user.email %></tr></td>
+      <tr></td><%= @user.address %></tr></td>
+      <% @user.stores.each do |store| %>
+        <%= store.name %> <%= link_to "Fire", admin_employee_path(@user, store_id: store.id, fire: true), method: :put %>
+      <% end %>
+    </div>
+  </div>
+</div>
