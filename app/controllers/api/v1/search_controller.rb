@@ -1,7 +1,7 @@
 class Api::V1::SearchController < Api::ApplicationController
-  
+
   def index
-    render json: search_api_service.search, to: SearchSerializer
+    render json: search_api_service.search
   end
 
   private
