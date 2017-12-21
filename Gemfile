@@ -19,6 +19,7 @@ gem 'jquery-rails'
 gem 'friendly_id', '~> 5.1.0'
 gem "paperclip", "~> 5.0.0"
 gem 'chart-js-rails'
+gem 'faker'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -31,7 +32,6 @@ group :development, :test do
   gem 'pry'
   gem 'shoulda-matchers', git: 'https://github.com/thoughtbot/shoulda-matchers.git', branch: 'rails-5'
   gem 'launchy'
-  gem 'faker'
   gem 'simplecov'
 end
 
