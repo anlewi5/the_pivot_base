@@ -58,6 +58,4 @@ Rails.application.routes.draw do
 
   get "/:store", to: "stores#show", as: :store
 
-  resources :charges, only: [:new, :create]
-
 end
