@@ -1,5 +1,8 @@
-<%= render partial: "admin/shared/admin_nav" %>
-
+<% if current_user.platform_admin? %>
+  <%= render "platform/shared/platform_nav" %>
+<% else %>
+  <%= render partial: "admin/shared/admin_nav" %>
+<% end %>
 <div class="container">
   <div class="tab-content" id="nav-tabContent">
     <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
