@@ -1,7 +1,7 @@
 class SearchApiService
 
   def initialize(attrs = {})
-    @type = attrs[:type]
+    @type = attrs[:type].downcase
     @search_word = attrs[:q]
   end
 
@@ -30,15 +30,16 @@ class SearchApiService
     end
 
     def search_word_search
+      insensitive_search_word = search_word.downcase
       case type
       when 'items', 'item'
-        Item.where("title ilike ? OR description ilike ?", "%#{search_word}%", "%#{search_word}%")
+        Item.where("title ilike ? OR description ilike ?", "%#{insensitive_search_word}%", "%#{insensitive_search_word}%")
       when 'stores', 'store'
-        Store.where("name ilike ?", "%#{search_word}%")
+        Store.where("name ilike ?", "%#{insensitive_search_word}%")
       when 'users', 'user'
-        User.where("first_name ilike ? OR last_name ilike ?", "%#{search_word}%", "%#{search_word}%")
+        User.where("first_name ilike ? OR last_name ilike ?", "%#{insensitive_search_word}%", "%#{insensitive_search_word}%")
       when 'category', 'categories'
-        Category.where("title ilike ?", "%#{search_word}%")
+        Category.where("title ilike ?", "%#{insensitive_search_word}%")
       end
     end
 end
