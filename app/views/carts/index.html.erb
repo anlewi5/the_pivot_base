@@ -69,6 +69,29 @@
     <div class="checkout">
       <% if current_user %>
         <%= link_to "Checkout", new_order_path%>
+
+<%# Stripe Implementation START %>
+
+        <%= form_tag charges_path do %>
+        <article>
+          <% if flash[:error].present? %>
+          <div id="error_explanation">
+            <p><%= flash[:error] %></p>
+          </div>
+          <% end %>
+          <label class="amount">
+
+          </label>
+        </article>
+        <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+          data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+          data-description="A month's subscription"
+          data-amount="<%= number_to_currency(sum) %>"
+          data-locale="auto"></script>
+        <% end %>
+
+<%# Stripe Implementation END %>
+
       <% else %>
         <%= link_to "Login", login_path %> <br />
         <%= link_to "Create new account", new_user_path %>
