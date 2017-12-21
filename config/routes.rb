@@ -17,12 +17,6 @@ Rails.application.routes.draw do
     resources :users, only: [:index, :edit, :update]
   end
 
-  namespace :api do
-    namespace :v1 do
-      get '/search', to: 'search#index'
-    end
-  end
-
   namespace :admin do
     resources :dashboard, only: [:index]
     resources :items, only: [:index, :edit, :new, :create, :update]
