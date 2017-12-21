@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 feature "As a logged in platform admin," do
-  feature "when I visit /admin/dashboard and click 'Stores'" do
+  feature "when I visit /platform/dashboard and click 'Stores'" do
     let(:registered_user_role) { create(:registered_user) }
     let(:store_admin_role) { create(:store_admin) }
     let(:platform_admin_role) { create(:platform_admin) }
@@ -19,13 +19,13 @@ feature "As a logged in platform admin," do
 
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(platform_admin)
 
-      visit "/admin/dashboard"
+      visit "/platform/dashboard"
     end
 
     scenario  "I should see a list of stores divided by 'pending', 'active', and 'suspended' tabs" do
       store_2
       store_3
-      click_link "Stores", href: "/admin/stores"
+      click_link "All Stores", href: "/admin/stores"
 
       within(".pending_stores") do
         expect(page).to have_content(store_1.id)
@@ -51,7 +51,7 @@ feature "As a logged in platform admin," do
     feature "When I click 'Approve' for the pending company" do
       scenario "it shows up in the 'active' tab, and the user that requested this store has a role of store admin" do
         store_admin_role
-        click_link "Stores", href: "/admin/stores"
+        click_link "All Stores", href: "/admin/stores"
         click_on "Approve"
 
         within(".active_stores") do
@@ -66,7 +66,7 @@ feature "As a logged in platform admin," do
     feature "When I click 'Reject' for the pending company" do
       scenario "it shows up in the 'suspended' tab, and the user that requested this store has a role of store admin" do
         store_admin_role
-        click_link "Stores", href: "/admin/stores"
+        click_link "All Stores", href: "/admin/stores"
         click_on "Reject"
 
         within(".suspended_stores") do

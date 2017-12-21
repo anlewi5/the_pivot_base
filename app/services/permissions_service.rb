@@ -25,6 +25,10 @@ class PermissionsService
     def platform_admin_permissions
       return true if controller == 'users' && action.in?(%w(edit update))
       return true if controller == 'admin/stores' && action.in?(%w(index update))
+      return true if controller == 'platform/orders' && action.in?(%w(index))
+      return true if controller == 'platform/dashboard' && action == 'index'
+      return true if controller == 'platform/items' && action.in?(%w(index edit update))
+      return true if controller == 'platform/users' && action.in?(%w(index edit update))
       store_admin_permissions
     end
 
@@ -46,6 +50,7 @@ class PermissionsService
       return true if controller == 'user/stores' && action.in?(%w(index))
       return true if controller == 'stores' && action.in?(%w(index show new create))
       return true if controller == 'orders' && action.in?(%w(index show))
+      return true if controller == 'users' && action.in?(%w(edit update))
       guest_user_permissions
     end
 

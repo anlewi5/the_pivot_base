@@ -1,0 +1,33 @@
+<div class="container">
+    <%= @user.full_name %><br><br>
+    <%= @user.email %><br><br>
+    <%= @user.address %><br><br>
+  <div class="row">
+    <div class="col-3">
+      <% if !@user.stores.empty? %>
+        <table class="table">
+          <thead>
+          <tr></td>Store Name</tr></td>
+          <tr></td>Position</tr></td>
+          <tr></td></tr></td>
+          </thead>
+          <tbody>
+            <% @user.stores.each do |store| %>
+              <tr>
+                <td><%= store.name %></td>
+                <td class="status"><%= @user.role_name_for_store(store) %></td>
+                <td><%= link_to "Fire", admin_employee_path(@user, store_id: store.id, fire: true), method: :put %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% else %>
+        <p>No stores</p>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">...</div>
+  <div class="tab-pane fade" id="nav-dropdown1" role="tabpanel" aria-labelledby="nav-dropdown1-tab">...</div>
+  <div class="tab-pane fade" id="nav-dropdown2" role="tabpanel" aria-labelledby="nav-dropdown2-tab">...</div>
