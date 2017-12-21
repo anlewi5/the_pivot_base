@@ -38,7 +38,6 @@ class StripeChargesServices
     end
 
     def create_charge(customer)
-      require 'pry'; binding.pry
       Stripe::Charge.create(
         customer: customer.id,
         amount: order_amount,
