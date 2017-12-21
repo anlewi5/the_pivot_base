@@ -1,5 +1,7 @@
 # The Pivot - Base Project
 
+[![CircleCI](https://circleci.com/gh/anlewi5/the_pivot_base.svg?style=shield)](https://circleci.com/gh/anlewi5/the_pivot_base)
+
 The following Rails app is used as the base project for [The Pivot](http://backend.turing.io/module3/projects/the_pivot).
 
 ## Setup
