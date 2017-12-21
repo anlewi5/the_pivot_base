@@ -1,0 +1,85 @@
+<%= render partial: "admin/shared/admin_nav" %>
+
+<div class="container">
+  <div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+ 	      <table class="table table-hover pending_stores">
+ 	         <thead>
+             <h5>Pending Stores</h5>
+ 	            <tr>
+         	      <th>Store #</th>
+         	      <th>Store Name</th>
+         	      <th>Store Status</th>
+ 		      			<th></th>
+ 		      			<th></th>
+ 	            </tr>
+ 	          </thead>
+            <tbody>
+             <% @stores.pending.each do |store| %>
+               <tr class="store<%= store.id %>">
+                 <th scope="row">
+                   <%= store.id %>
+                 </th>
+                 <td><%= store.name %></td>
+                 <td class="status"><%= store.status.capitalize %></td>
+                 <td><%= link_to "Approve", admin_store_path(store, status: "active", initial_req: true), method: :put, class: "badge badge-success" %></td>
+                 <td><%= link_to "Reject", admin_store_path(store, status: "suspended", initial_req: true), method: :put, class: "badge badge-warning" %></td>
+               </tr>
+             <% end %>
+            </tbody>
+        </table>
+        <table class="table table-hover active_stores">
+ 	         <thead>
+             <h5>Active Stores</h5>
+ 	            <tr>
+         	      <th>Store #</th>
+         	      <th>Store Name</th>
+         	      <th>Store Status</th>
+ 		      			<th></th>
+ 		      			<th></th>
+ 	            </tr>
+ 	          </thead>
+            <tbody>
+             <% @stores.active.each do |store| %>
+               <tr class="store<%= store.id %>">
+                 <th scope="row">
+                   <%= store.id %>
+                 </th>
+                 <td><%= store.name %></td>
+                 <td class="status"><%= store.status.capitalize %></td>
+                 <td><%= link_to "Suspend", admin_store_path(store, status: "suspended"), method: :put, class: "badge badge-warning" %></td>
+                 <td></td>
+               </tr>
+             <% end %>
+            </tbody>
+        </table>
+        <table class="table table-hover suspended_stores">
+ 	         <thead>
+             <h5>Suspended Stores</h5>
+ 	            <tr>
+         	      <th>Store #</th>
+         	      <th>Store Name</th>
+         	      <th>Store Status</th>
+ 		      			<th></th>
+ 		      			<th></th>
+ 	            </tr>
+ 	          </thead>
+            <tbody>
+             <% @stores.suspended.each do |store| %>
+               <tr class="store<%= store.id %>">
+                 <th scope="row">
+                   <%= store.id %>
+                 </th>
+                 <td><%= store.name %></td>
+                 <td class="status"><%= store.status.capitalize %></td>
+                 <td><%= link_to "Reactivate", admin_store_path(store, status: "active"), method: :put, class: "badge badge-success" %></td>
+               </tr>
+             <% end %>
+            </tbody>
+        </table>
+      </div>
+    </div>
+  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">...</div>
+  <div class="tab-pane fade" id="nav-dropdown1" role="tabpanel" aria-labelledby="nav-dropdown1-tab">...</div>
+  <div class="tab-pane fade" id="nav-dropdown2" role="tabpanel" aria-labelledby="nav-dropdown2-tab">...</div>
+</div>

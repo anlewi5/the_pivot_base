@@ -1,9 +1,11 @@
 require 'rails_helper'
 
 describe "As a user" do
+  let(:role) { create(:registered_user) }
   describe "visits /orders" do
     it "can see all past orders" do
       user = create(:user)
+      user.roles << role
       create(:order, user: user)
       item = create(:item, price: 5.00)
       items_with_quantity = [ {item => 2} ]
@@ -11,7 +13,7 @@ describe "As a user" do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
       visit '/orders'
-      
+
       expect(page).to have_css(".order", count: 2)
 
       within("#order-#{order_1.id}") do

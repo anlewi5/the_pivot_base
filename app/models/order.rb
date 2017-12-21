@@ -3,20 +3,12 @@ class Order < ApplicationRecord
   validates :status, presence: true
   has_many :order_items
   has_many :items, through: :order_items
+  belongs_to :store
 
   enum status: ["ordered", "paid", "cancelled", "completed"]
 
   def update_total_price
     update(total_price: order_items.sum(:total_price))
-  end
-
-  def add(item_hash)
-    item_hash.each do |item, quantity|
-      items << item
-      order_item = OrderItem.find_by(order: self, item_id: item.id)
-      order_item.capture_transaction_details(quantity)
-    end
-    update_total_price
   end
 
   def date
@@ -27,8 +19,12 @@ class Order < ApplicationRecord
     group(:status).count
   end
 
-  def self.filter_by_status(status)
-    where(status: status)
+  def self.filter_by_status(status, user)
+    if user.platform_admin?
+      where(status: status)
+    else
+      where(store: user.stores).where(status: status)
+    end
   end
 
   def self.count_of_completed_orders
@@ -38,4 +34,13 @@ class Order < ApplicationRecord
   def self.shop_total_gross
 		where(status: :completed).joins(:items).sum(:price)
   end
+
+  def self.all_for_admin(user)
+    if user.platform_admin?
+      Order.all
+    else
+      where(store: user.stores)
+    end
+  end
+
 end

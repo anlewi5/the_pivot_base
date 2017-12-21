@@ -10,13 +10,20 @@ Rails.application.routes.draw do
   post '/login', :to => 'sessions#create'
   delete '/logout', :to => 'sessions#destroy'
 
+  namespace :platform do
+    resources :items, only: [:index, :edit, :update]
+    resources :orders, only: [:index]
+    resources :dashboard, only: [:index]
+    resources :users, only: [:index, :edit, :update]
+  end
 
   namespace :admin do
     resources :dashboard, only: [:index]
     resources :items, only: [:index, :edit, :new, :create, :update]
     resources :analytics, only: [:index]
+    resources :stores, only: [:index, :update]
+    resources :employees, only: [:index, :update]
   end
-
 
   resources :users , only: [:new, :create, :edit, :update]
 
@@ -37,6 +44,12 @@ Rails.application.routes.draw do
 
   resources :categories, only: [:show], param: :category
 
-  get "/:store", to: "store#show", as: :store
+  namespace :user do
+    resources :stores, only: [:index, :edit, :update]
+  end
+
+  resources :stores, only: [:index, :new, :create]
+
+  get "/:store", to: "stores#show", as: :store
 
 end

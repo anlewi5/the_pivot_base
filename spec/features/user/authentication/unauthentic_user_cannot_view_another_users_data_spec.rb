@@ -1,24 +1,23 @@
 require 'rails_helper'
 
 RSpec.feature "Unauthenticated users security" do
-  before(:each) do
-    user = create(:user)
-    @order = create(:order, user: user)
-    @unicorn_onesie_1 = create(:item)
-  end
+  let(:user) { create(:user) }
+  let(:order) { create(:order, user: user)}
+  let(:unicorn_onesie_1) { create(:item) }
+
   context "As an unauthenticated user" do
     it "I cannot view another user’s private data" do
       visit dashboard_index_path
 
       expect(current_path).to eq(login_path)
 
-      visit order_path(@order)
-
-      expect(current_path).to eq(login_path)
+      expect {
+        visit order_path(order)
+      }.to raise_exception(ActionController::RoutingError)
     end
 
     it "I should be redirected to login/create account when I try to check out" do
-      visit item_path(@unicorn_onesie_1)
+      visit item_path(unicorn_onesie_1)
 
       click_on "Add to cart"
 

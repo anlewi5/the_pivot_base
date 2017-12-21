@@ -2,6 +2,7 @@ class User < ApplicationRecord
   has_secure_password
   has_many :user_roles
   has_many :roles, through: :user_roles
+  has_many :stores, through: :user_roles
   has_many :orders
 
   validates :first_name, :last_name, :password, presence: true
@@ -22,6 +23,12 @@ class User < ApplicationRecord
     created_at.strftime('%b. %d, %Y')
   end
 
+  def current_admin?
+    return true if platform_admin?
+    return true if store_admin?
+    return true if store_manager?
+  end
+
   def platform_admin?
     roles.exists?(name: 'Platform Admin')
   end
@@ -32,6 +39,14 @@ class User < ApplicationRecord
 
   def store_manager?
     roles.exists?(name: 'Store Manager')
+  end
+
+  def registered_user?
+    roles.exists?(name: 'Registered User')
+  end
+
+  def role_name_for_store(store)
+    user_roles.find_by(store: store).role.name
   end
 
   def self.user_orders

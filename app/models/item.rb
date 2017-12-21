@@ -6,7 +6,7 @@ class Item < ApplicationRecord
   validates :title     ,  presence: true, uniqueness: true
   validates :description, :price, presence: true
   has_attached_file :image,
-    :default_url => '/images/missing.jpg', styles: {thumb: "68x68#", medium: "300x300#"},
+    :default_url => 'missing.jpg', styles: {thumb: "68x68#", medium: "300x300#"},
     :path => ":rails_root/public/images/:id/:style/:filename",
     :url => "/images/:id/:style/:filename"
   validates_attachment_content_type :image, content_type: ['image/jpeg', 'image/jpg', 'image/gif', 'image/png']
@@ -19,6 +19,14 @@ class Item < ApplicationRecord
 
   def self.items_by_title_with_status
     group(:title).joins(:orders).group(:status).count
+  end
+
+  def self.all_for_admin(user)
+    if user.platform_admin?
+      Item.all
+    else
+      where(store: user.stores)
+    end
   end
 
 end

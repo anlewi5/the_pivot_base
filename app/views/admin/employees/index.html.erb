@@ -1,0 +1,38 @@
+<%= render partial: "admin/shared/admin_nav" %>
+
+<div class="container">
+  <div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+      <% @stores.each do |store| %>
+ 	      <table class="table table-hover <%= store.url %>">
+ 	         <thead>
+             <h5><%= store.name %></h5>
+ 	            <tr>
+         	      <th>Employee Name</th>
+         	      <th>Employee Role</th>
+         	      <th></th>
+ 		      			<th></th>
+ 	            </tr>
+ 	          </thead>
+            <tbody>
+              <% store.users.each do |employee| %>
+                <tr>
+                  <td><%= employee.first_name %> <%= employee.last_name %></td>
+                  <td class="status"><%= employee.role_name_for_store(store) %></td>
+                  <td>
+                    <% unless employee.role_name_for_store(store) == "Store Admin" %>
+                      <%= link_to "Promote", admin_employee_path(employee, store_id: store.id), method: :put, class: "badge badge-success" %>
+                    <% end %>
+                  </td>
+                  <td><%= link_to "Fire", admin_employee_path(employee, store_id: store.id, fire: true), method: :put, class: "badge badge-warning" %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        <% end %>
+      </div>
+    </div>
+  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">...</div>
+  <div class="tab-pane fade" id="nav-dropdown1" role="tabpanel" aria-labelledby="nav-dropdown1-tab">...</div>
+  <div class="tab-pane fade" id="nav-dropdown2" role="tabpanel" aria-labelledby="nav-dropdown2-tab">...</div>
+</div>

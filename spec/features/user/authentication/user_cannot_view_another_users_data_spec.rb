@@ -19,6 +19,8 @@ RSpec.feature "Authenticated users security" do
     scenario "I cannot view another user's order" do
       chino = create(:user, first_name: "Chino")
       khaki = create(:user, first_name: "Khaki")
+      role = create(:registered_user)
+      khaki.roles << role
       stub_logged_in_user(khaki)
 
       order = create(:order, user: chino)

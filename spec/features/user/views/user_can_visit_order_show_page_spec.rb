@@ -4,6 +4,8 @@ describe "As a user" do
   describe "visits /orders" do
     it "can see all past orders" do
       user = create(:user)
+      role = create(:registered_user)
+      user.roles << role
       item = create(:item, price: 5.00)
       items_with_quantity = [ {item => 2} ]
       order = create(:order_with_items, user: user, items_with_quantity: items_with_quantity)

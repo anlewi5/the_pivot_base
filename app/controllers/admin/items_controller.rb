@@ -1,12 +1,12 @@
 class Admin::ItemsController < ApplicationController
   before_action :require_admin
   def index
-    @items = Item.all
+    @items = Item.all_for_admin(current_user)
   end
 
   def new
     @item = Item.new
-    @stores = Store.all
+    @stores = Store.all_for_admin(current_user)
     @categories = Category.all
   end
 
@@ -30,7 +30,7 @@ class Admin::ItemsController < ApplicationController
 
   def edit
     @item = Item.find(params[:id])
-    @stores = Store.all
+    @stores = Store.all_for_admin(current_user)
     @categories = Category.all
   end
 
@@ -38,9 +38,5 @@ class Admin::ItemsController < ApplicationController
 
   def item_params
     params.require(:item).permit(:title, :description, :price, :store_id, :category_id, :image)
-  end
-
-  def require_admin
-    render file: "/public/404" unless current_admin?
   end
 end
