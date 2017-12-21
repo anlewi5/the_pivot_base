@@ -22,6 +22,7 @@ gem 'chart-js-rails'
 gem 'faker'
 gem 'aws-sdk', '~> 2.3.0'
 gem 'active_model_serializers', '~> 0.10.0'
+gem 'stripe'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
